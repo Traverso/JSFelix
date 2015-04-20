@@ -1,0 +1,87 @@
+  nav.navbar.navbar-default { border:0;border-radius:0;margin-bottom:0;padding-bottom:0px; }
+  #status-bar
+  {
+    padding:5px;
+    background-color:#e3e3e3;
+    text-align:right;
+    font-size:11px;
+  }
+
+  nav.navbar { height:70px;background-image:url('/images/FelixLogo.png');background-repeat:no-repeat; }
+  nav .navbar-header { margin-left:155px;margin-top:5px; }
+  nav .brand { font-size:24px;font-weight:normal; }
+  .status-light { 
+                  width:12px;height:12px;
+                  -moz-border-radius: 12px;
+                  border-radius: 12px;
+                  float:right;
+                  margin-left:10px;
+                  margin-top:2px;
+                 }
+
+  .disconnected { background-color:#cc3300; }
+  .panel { margin-right:10px;margin-left:10px; }
+  .connected { background-color:#06E949; }
+  #joystick 
+  {
+    width:300px;
+    height:300px;
+    vertical-align:middle;
+    padding:5px;
+    border:3px solid #999;
+    position:relative;
+    margin-left:auto;
+    margin-right:auto;
+    margin-top:20px;
+  }
+
+  #joystick table { width:100%;height:100%; }
+  #joystick table td { border:1px solid #e3e3e3; }
+  #joystickControl { position:absolute;top:122px;left:122px;
+                     background-color:#cc3300;width:50px;height:50px; 
+                      -moz-border-radius: 25px;
+                     border-radius: 25px;
+                     border:4px solid #e3e3e3;
+                   }
+
+  #joystickControl.isMoving { background-color:#27E23D; }
+
+  .status-label { display:none; }
+  .status-light { display:none; }
+
+  #fidgeting
+  {
+    margin-top:20px;
+    padding:10px;
+    background-color:#e3e3e3;
+  }
+
+  #control-board
+  {
+    margin-left:20px;
+  }
+  #control-board table td
+  {
+    padding:4px;
+  }
+  #control-board select { width:400px; }
+
+  .panel { margin-bottom:10px; }
+  .panel-heading { cursor:pointer; }
+
+  td.v { width:300px; }
+  .ranger {text-align:left; }
+  .ranger input {width:100px;display:inline;border:1px solid #fff; }
+  .ranger input[type=text] { float:right;}
+  .ranger input[type=range] { width:170px;float:left;}
+
+  td.servo { text-align:center;width:200px; }
+  td.servo input { border:1px solid #fff;text-align:center; }
+
+  td.delta { text-align:center;width:200px; }
+  td.delta input { border:1px solid #fff;text-align:center; }
+
+  .table>tbody>tr>td { vertical-align:middle;padding-left:10px; }
+
+
+

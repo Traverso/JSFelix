@@ -1,0 +1,21 @@
+{
+  "name": "FelixDashboard",
+  "version": "0.0.1",
+  "authors": [
+    "Traverso <ronald@burningservos.com>"
+  ],
+  "description": "A Control Dashboard for Felix a Quadruped Robot",
+  "license": "MIT",
+  "homepage": "http://www.burningservos.com",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.3.1",
+    "victor": "~0.2.6"
+  }
+}

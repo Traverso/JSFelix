@@ -1,0 +1,17 @@
+{
+  "name": "FelixDashboard",
+  "version": "0.0.1",
+  "author": "Ronald Jaramillo",
+  "description": "Dashboard to control Felix via socket.io",
+  "dependencies": {
+    "body-parser": "^1.9.2",
+    "express": "^4.10.2",
+    "http": "0.0.0",
+    "jquery": "^2.1.1",
+    "path": "^0.4.9",
+    "socket.io": "^1.2.0",
+    "socket.io-client": "^1.2.0",
+    "underscore": "1.6.x"
+  },
+  "devDependencies": { }
+}

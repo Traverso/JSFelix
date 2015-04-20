@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Felix Dashboard</title>
+
+    <!-- Bootstrap -->
+    <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/css/font-awesome.css" />
+    <link href="stylesheets/style.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+  </head>
+  <body >
+
+      <nav class="navbar navbar-default" >
+        <div>
+            <div class="navbar-header" >
+              <div class="brand">
+                FELIX DASHBOARD
+              </div>
+              <div style="font-size:10px">Version 1.0</div>
+            </div>
+
+
+        </div>
+      </nav>
+
+      <div id="status-bar">
+          
+          Status: 
+
+          <span class="status-label status-disconnected">disconnected</span>
+          <span class="status-label status-connected"><span id="board_type"></span> is connected</span>
+
+          <div class="status-light disconnected status-disconnected">&nbsp;</div>
+          <div class="status-light connected status-connected">&nbsp;</div>
+      </div>
+
+      <div id="joystick">
+        <div id="joystickControl" class="draggable"></div>
+        <table border="1" width="100%" class="joystick_container">
+            <tr>
+                <td style="font-size:10px;width:50%;height:50%" valign="top">
+                  <div id="drag_x"></div>
+                  <div id="drag_y"></div>
+                </td>
+                <td>&nbsp;</td>
+             </tr>
+            <tr><td>&nbsp;</td><td>&nbsp;</td></tr>
+        </table>
+
+      </div>
+      <!--end joystick-->
+
+      <div id="fidgeting">
+
+          <table>
+            <tr>
+              <td>
+                  <button class="btn btn-default" onclick="calibrate()">
+                      <span class="glyphicon glyphicon-cog"></span> Calibrate servos
+                  </button>
+              </td>
+            </tr>
+          </table>
+
+          <!--
+          <div>
+            Height:
+            <input type="range" min="70" max="125" />
+          </div>
+          -->
+
+      <div>
+
+      <script src="bower_components/jquery/dist/jquery.min.js"></script>
+      <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+      <script src="bower_components/draggabilly/dist/draggabilly.pkgd.min.js"></script>
+      <script src="/socket.io/socket.io.js"></script>
+
+      <script>
+          var isMoving= false;
+          var currentPosition = { x:0,y:0 };
+          var X1 = 122;
+          var Y1 = 122;
+          var socket = io.connect('//localhost:5000');
+
+
+          $(document).ready(function(){
+              socket.emit('status');
+          });
+
+          socket.on('status',function(data){
+              connectionStatus((data.status == 'ok'));
+          });
+
+          function calibrate(){
+              socket.emit('calibrate');
+          }
+
+
+          function connectionStatus(state) {
+            if(!state) {
+               $('.status-disconnected').show();
+               $('.status-connected').hide();
+            }
+            else {
+               $('.status-disconnected').hide();
+               $('.status-connected').show();
+            }
+          }
+
+          function updateState(){
+              if(isMoving){
+                //move
+                $('#joystickControl').addClass('isMoving');
+                socket.emit('walk',currentPosition);
+              }
+              else {
+                //stop
+                $('#joystickControl').removeClass('isMoving');
+                socket.emit('stop');
+              }
+          }
+
+          var $draggable = $('.draggable').draggabilly({
+              containment: '.joystick_container'
+          }) 
+
+          $draggable.on('staticClick',function(event,pointer){
+              isMoving = !isMoving;
+              updateState();
+
+          });
+
+          $draggable.on('dragStart',function(event,pointer){
+              isMoving = true;
+              updateState();
+          });
+
+          $draggable.on('dragMove', function( event, pointer, moveVector ) {
+              var draggie = $('.draggable').data('draggabilly');
+
+              var x = (draggie.position.x - X1);
+              var y = (draggie.position.y - Y1) * -1;
+
+              currentPosition.x = Math.round(x.map(-117,117,-10,10));
+              currentPosition.y = Math.round(y.map(-117,117,-10,10));
+
+              $('#drag_x').html('x:'+ currentPosition.x);
+              $('#drag_y').html('y:'+ currentPosition.y);
+
+              updateState();
+          });
+
+          Number.prototype.map = function ( in_min , in_max , out_min , out_max ) {
+            return ( this - in_min ) * ( out_max - out_min ) / ( in_max - in_min ) + out_min;
+          }
+
+      </script>
+
+
+  </body>
+</html>
