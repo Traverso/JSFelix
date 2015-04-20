@@ -1,2 +1,5 @@
-
+node_modules/*
+public/node_modules/*
+public/bower_components/*
+*.swo
 *.swp
