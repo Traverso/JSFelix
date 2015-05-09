@@ -4,6 +4,7 @@ include <BodyBottom.scad>
 include <Femur.scad>
 include <Shin.scad>
 
+
 translate([ 0 -(BODY_RECTANGLE_WIDTH / 2),38,0])
 {
   projection(cut=false) BodySide();
@@ -45,3 +46,6 @@ translate([ 0 -(BODY_RECTANGLE_WIDTH / 2),38,0])
   rotate([0,0,-38])
   projection(cut=false) Shin();
 }
+
+translate([-111,-140,-8])
+cube(size = [217,295,2]);

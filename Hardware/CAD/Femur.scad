@@ -15,7 +15,8 @@ module Femur()
       union()
       {
         translate([rad,leg_height,0])
-        cylinder(h=SHEET_THICKNESS,r=rad,$fs=0.01,$fa = 0.1);
+        //cylinder(h=SHEET_THICKNESS,r=rad,$fs=0.01,$fa = 0.1);
+        cylinder(h=SHEET_THICKNESS,r=rad,$fs=0.01);
         servoHolder(SERVO_WIDTH,leg_height - 5);
       }
 
